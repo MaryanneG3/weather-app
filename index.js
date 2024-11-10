@@ -1,7 +1,7 @@
 const cityInput = document.getElementById("input");
 const dispalySection = document.getElementById("display");
 
-
+// get new key!
 const API_KEY = "650ad8fb3c6e4ecab3190253232706";
 
 const handleClick = () => {
@@ -14,8 +14,7 @@ const handleClick = () => {
   )
     .then((res) => res.json())
     .then((data) => {
-        dispalySection.innerHTML =
-      ` <p>${data.location.name}'s teamperature is ${data.current.temp_c}℃.</p>
+      dispalySection.innerHTML = ` <p>${data.location.name}'s teamperature is ${data.current.temp_c}℃.</p>
         <p>It's ${data.current.condition.text}.</p>
         <img src="${data.current.condition.icon}" alt="icon"/>
       `;
