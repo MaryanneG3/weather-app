@@ -1,28 +1,27 @@
 const cityInput = document.getElementById("input");
-const dispalySection = document.getElementById("display");
+const displaySection = document.getElementById("display");
 
 // get new key!
-const API_KEY = "650ad8fb3c6e4ecab3190253232706";
+const API_KEY = "2af760a283084986b7f54415241111";
 
 const handleClick = () => {
-  let currentCity = cityInput.value;
+  const currentCity = cityInput.value || "London"; // Default to London if input is empty
 
-  const getWeather = fetch(
-    `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${
-      currentCity || "London"
-    }&aqi=no`
+  fetch(
+    `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=London&aqi=no`
   )
     .then((res) => res.json())
     .then((data) => {
-      dispalySection.innerHTML = ` <p>${data.location.name}'s teamperature is ${data.current.temp_c}℃.</p>
+      displaySection.innerHTML = `
+        <p>${data.location.name}'s temperature is ${data.current.temp_c}℃.</p>
         <p>It's ${data.current.condition.text}.</p>
-        <img src="${data.current.condition.icon}" alt="icon"/>
+        <img src="${data.current.condition.icon}" alt="Weather icon" />
       `;
     })
     .catch((err) => {
-      console.log(err);
-      dispalySection.innerText = `Please enter a vaild city.`;
+      console.error(err);
+      displaySection.innerText = "Please enter a valid city.";
     });
 };
 
-handleClick();
+document.getElementById("button").addEventListener("click", handleClick); // Attach event listener to the button
